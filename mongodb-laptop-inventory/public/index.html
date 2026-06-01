@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HP Laptop Inventory Management System</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>HP Laptop Inventory Management System</h1>
+      </header>
+
+      <section class="banners" id="banners"></section>
+
+      <main class="grid">
+        <div class="card form-card">
+          <h2>Add New Laptop</h2>
+          <form id="laptop-form">
+            <label>Brand
+              <input type="text" name="laptop_brand" id="laptop_brand" required />
+            </label>
+            <label>Series
+              <input type="text" name="series" id="series" required />
+            </label>
+            <label>Price
+              <input type="number" name="price" id="price" step="0.01" required />
+            </label>
+            <div class="form-actions">
+              <button type="submit" class="btn primary" id="add-btn">Add Laptop</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="card table-card">
+          <h2>Inventory</h2>
+          <div class="table-wrap">
+            <table id="laptops-table">
+              <thead>
+                <tr>
+                  <th>Brand</th>
+                  <th>Series</th>
+                  <th>Price</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="laptops-body">
+                <!-- Rows injected here -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-actions">
+            <button id="clear-all" class="btn danger">Clear All Records From Cloud</button>
+          </div>
+        </div>
+      </main>
+
+      <footer>
+        <small>Deployed with Node.js + MongoDB Atlas</small>
+      </footer>
+    </div>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>

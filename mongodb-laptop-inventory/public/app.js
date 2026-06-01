@@ -46,7 +46,10 @@ function createRow(doc){
 async function fetchLaptops(){
   try{
     const res = await fetch('/api/laptops');
-    if(!res.ok) throw new Error('Failed to fetch');
+    if(!res.ok) {
+      const errText = await res.text();
+      throw new Error(`Server error: ${res.status}`);
+    }
     const data = await res.json();
     tableBody.innerHTML = '';
     data.forEach(d => tableBody.appendChild(createRow(d)));
@@ -80,12 +83,13 @@ form.addEventListener('submit', async (e)=>{
       body: JSON.stringify({ laptop_brand, series, price })
     });
 
-    const result = await res.json();
     if(!res.ok){
+      const result = await res.json().catch(() => ({ error: 'Unknown server error' }));
       showBanner(result.error || 'Failed to save laptop.', 'error');
       return;
     }
 
+    const result = await res.json();
     // Append to UI
     tableBody.appendChild(createRow(result));
     form.reset();

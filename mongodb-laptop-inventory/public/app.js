@@ -84,8 +84,14 @@ form.addEventListener('submit', async (e)=>{
     });
 
     if(!res.ok){
-      const result = await res.json().catch(() => ({ error: 'Unknown server error' }));
-      showBanner(result.error || 'Failed to save laptop.', 'error');
+      let errorMessage = 'Failed to save laptop.';
+      try {
+        const result = await res.json();
+        errorMessage = result.error || errorMessage;
+      } catch (e) {
+        // Response was not JSON (e.g., HTML 404 page)
+      }
+      showBanner(errorMessage, 'error');
       return;
     }
 
